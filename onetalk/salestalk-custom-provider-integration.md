@@ -284,7 +284,7 @@ Get the details of a product.
 
 ```json
 {
-  "items": {
+  "item": {
     "id": "123",
     "name": "Apple iPhone 14 Pro Max 128GB",
     "category": {

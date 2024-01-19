@@ -4,6 +4,8 @@
 
 ### Integration
 
+* Chatbot
+  - [Custom Chatbot Integration](onetalk/chatbot/custom-chatbot.md)
 * SalesTalk
   - [Custom Provider Integration](onetalk/salestalk-custom-provider-integration.html)
 
