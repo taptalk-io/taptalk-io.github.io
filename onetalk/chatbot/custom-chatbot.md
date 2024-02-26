@@ -384,13 +384,13 @@ Examples:
 {
   "caseID": "FBED34A1EF",
   "eventType": "handover_case",
-  "handoverCase": [{...}]
+  "handoverCase": {...}
 }
 
 {
   "caseID": "FBED34A1EF",
   "eventType": "close_case",
-  "closeCase": [{...}]
+  "closeCase": {...}
 }
 ```
 
