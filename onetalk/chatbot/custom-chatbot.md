@@ -790,15 +790,19 @@ If the parameter `topicID` is not set or value is 0 and the case is not assigned
 then the case will be automatically assigned to the channel's topic.
 In case the channel has multiple topics, then a message containing topic options will be sent to the customer.
 
+If the parameter `agentEmail` is set, the selected agent must be assigned to the case's assigned topic.
+
 | Field       | Type     | Description
-|:------------|:---------|:-------------------------------------------
+|:------------|:---------|:------------------------------------------------------
 | topicID     | integer  | `Optional` ID of the topic to handover to. 
+| agentEmail  | string   | `Optional` Email address of the agent to handover to.
 
 Example:
 
 ```json
 {
-  "topicID": 123
+  "topicID": 123,
+  "agentEmail": ""
 }
 ```
 
