@@ -347,6 +347,7 @@ There are 3 events supported:
 - `messages`: Handle outbound messages.
 - `handover_case`: Handover case from chatbot to agent.
 - `close_case`: Close the case.
+- `update_contact`: Update the case's associated contact.
 
 ### HTTP Method
 
@@ -364,13 +365,14 @@ POST
 
 The request body must be JSON.
 
-| Field        | Type                                         | Description
-|:-------------|:---------------------------------------------|:----------------------------------------------------------------
-| caseID       | string                                       | The case ID.
-| eventType    | string                                       | The event type ("messages", "handover_case", or "close_case").
-| messages     | array of [OutboundMessage](#outboundmessage) | `Optional` The list of outbound messages to be sent as chatbot's response.
-| handoverCase | [WebhookHandoverCase](#webhookhandovercase)  | `Optional` Details for the handover.
-| closeCase    | [WebhookCloseCase](#webhookclosecase)        | `Optional` Details for closing the case.
+| Field         | Type                                          | Description
+|:--------------|:----------------------------------------------|:-----------------------------------------------------------------
+| caseID        | string                                        | The case ID.
+| eventType     | string                                        | The event type ("messages", "handover_case" "close_case", or "update_contact").
+| messages      | array of [OutboundMessage](#outboundmessage)  | `Optional` The list of outbound messages to be sent as chatbot's response.
+| handoverCase  | [WebhookHandoverCase](#webhookhandovercase)   | `Optional` Details for the handover.
+| closeCase     | [WebhookCloseCase](#webhookclosecase)         | `Optional` Details for closing the case.
+| updateContact | [WebhookUpdateContact](#webhookupdatecontact) | `Optional` Details for updating the contact.
 
 Examples:
 
@@ -391,6 +393,12 @@ Examples:
   "caseID": "FBED34A1EF",
   "eventType": "close_case",
   "closeCase": {...}
+}
+
+{
+  "caseID": "FBED34A1EF",
+  "eventType": "update_contact",
+  "updateContact": {...}
 }
 ```
 
@@ -817,5 +825,47 @@ Example:
 ```json
 {
   "sendClosingMessage": false
+}
+```
+
+#### WebhookUpdateContact
+
+Only provided fields will be updated.
+
+| Field        | Type               | Description
+|:-------------|:-------------------|:-------------------------------------------------------------------------------
+| fullName     | string             | `Optional` The contact's full name.
+| alias        | string             | `Optional` The contact's alias, may be empty.
+| companyName  | string             | `Optional` The contact's company name, may be empty.
+| jobTitle     | string             | `Optional` The contact's job title, may be empty.
+| customFields | map[string:string] | `Optional` The custom fields to be updated.
+| - key        | string             | The custom field code to be updated.
+| - value      | string             | Value of the custom field, may be empty depending on the custom field's setup.
+
+Example:
+
+```json
+{
+  "fullName": "John Doe",
+  "alias": "John",
+  "companyName": "PT Tap Talk Teknologi",
+  "jobTitle": "", // Set the value as empty string
+  "customFields": {
+    // "field_code": "value"
+    "company_address": "Business Park Kebon Jeruk blok C2-3\nMeruya Utara...", // Field type: Multiple Lines
+    "company_city": "Jakarta", // Field type: Single Line
+    "birthday": "2000-12-31", // Field type: Date
+    "products": "[\"OneTalk\",\"SendTalk\",\"PowerTalk\"]", // Field type: Multiple Select (JSON-encoded array)
+    "account_manager": "" // Set the value as empty
+  }
+}
+
+{
+  "fullName": "John Doe",
+  "alias": "",
+  "customFields": {
+    "membership_id": "202401234567890",
+    ...
+  }
 }
 ```
