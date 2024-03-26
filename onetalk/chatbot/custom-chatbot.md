@@ -347,6 +347,7 @@ There are 3 events supported:
 - `messages`: Handle outbound messages.
 - `handover_case`: Handover case from chatbot to agent.
 - `close_case`: Close the case.
+- `update_case`: Update the case's details.
 - `update_contact`: Update the case's associated contact.
 
 ### HTTP Method
@@ -372,6 +373,7 @@ The request body must be JSON.
 | messages      | array of [OutboundMessage](#outboundmessage)  | `Optional` The list of outbound messages to be sent as chatbot's response.
 | handoverCase  | [WebhookHandoverCase](#webhookhandovercase)   | `Optional` Details for the handover.
 | closeCase     | [WebhookCloseCase](#webhookclosecase)         | `Optional` Details for closing the case.
+| updateCase    | [WebhookUpdateCase](#webhookupdatecase)       | `Optional` Details for updating the case.
 | updateContact | [WebhookUpdateContact](#webhookupdatecontact) | `Optional` Details for updating the contact.
 
 Examples:
@@ -393,6 +395,12 @@ Examples:
   "caseID": "FBED34A1EF",
   "eventType": "close_case",
   "closeCase": {...}
+}
+
+{
+  "caseID": "FBED34A1EF",
+  "eventType": "update_case",
+  "updateCase": {...}
 }
 
 {
@@ -825,6 +833,24 @@ Example:
 ```json
 {
   "sendClosingMessage": false
+}
+```
+
+#### WebhookUpdateCase
+
+Only provided fields will be updated.
+
+| Field        | Type               | Description
+|:-------------|:-------------------|:-------------------------------------------------------------------------------
+| agentRemark  | string             | `Optional` Agent remark for the case, may be empty.
+| isJunk       | boolean            | `Optional` If the case is junk.
+
+Example:
+
+```json
+{
+  "agentRemark": "...",
+  "isJunk": true
 }
 ```
 
