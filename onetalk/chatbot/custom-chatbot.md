@@ -12,7 +12,7 @@ With custom chatbot, business must provide an API URL which can handle inbound m
 Business can connect any channels in its organization to a chatbot.
 When a message is received by a channel connected to the chatbot, OneTalk will forward the inbound message and case information to the chatbot URL. For more information, see [Inbound Messages](#inbound-messages).
 
-Custom chatbot can interact with the case via OneTalk's provided webhooks. For more information, see [Outbound Messages and Manage Case](#outbound-messages-and-manage-case).
+Custom chatbot can interact with the case via OneTalk's provided URL. For more information, see [Outbound Messages and Manage Case](#outbound-messages-and-manage-case).
 
 When creating custom chatbot in OneTalk dashboard, a secret key and OneTalk URL will be generated once. The OneTalk URL is used to interact with a case. The secret key is required when sending request to OneTalk URL. The secret key will also be provided in the HTTP header whenever OneTalk forward an inbound message to the chatbot, check the value to verify if the request is valid.
 
@@ -371,10 +371,10 @@ The request body must be JSON.
 | caseID        | string                                        | The case ID.
 | eventType     | string                                        | The event type ("messages", "handover_case" "close_case", or "update_contact").
 | messages      | array of [OutboundMessage](#outboundmessage)  | `Optional` The list of outbound messages to be sent as chatbot's response.
-| handoverCase  | [WebhookHandoverCase](#webhookhandovercase)   | `Optional` Details for the handover.
-| closeCase     | [WebhookCloseCase](#webhookclosecase)         | `Optional` Details for closing the case.
-| updateCase    | [WebhookUpdateCase](#webhookupdatecase)       | `Optional` Details for updating the case.
-| updateContact | [WebhookUpdateContact](#webhookupdatecontact) | `Optional` Details for updating the contact.
+| handoverCase  | [HandoverCase](#handovercase)   | `Optional` Details for the handover.
+| closeCase     | [CloseCase](#closecase)         | `Optional` Details for closing the case.
+| updateCase    | [UpdateCase](#updatecase)       | `Optional` Details for updating the case.
+| updateContact | [UpdateContact](#updatecontact) | `Optional` Details for updating the contact.
 
 Examples:
 
@@ -800,7 +800,7 @@ Example:
 }
 ```
 
-#### WebhookHandoverCase
+#### HandoverCase
 
 If the parameter `topicID` is not set or value is 0 and the case is not assigned to any topic yet,
 then the case will be automatically assigned to the channel's topic.
@@ -822,7 +822,7 @@ Example:
 }
 ```
 
-#### WebhookCloseCase
+#### CloseCase
 
 | Field              | Type    | Description
 |:-------------------|:--------|:-------------------------------------------------------------------------------
@@ -836,7 +836,7 @@ Example:
 }
 ```
 
-#### WebhookUpdateCase
+#### UpdateCase
 
 Only provided fields will be updated.
 
@@ -854,7 +854,7 @@ Example:
 }
 ```
 
-#### WebhookUpdateContact
+#### UpdateContact
 
 Only provided fields will be updated.
 
