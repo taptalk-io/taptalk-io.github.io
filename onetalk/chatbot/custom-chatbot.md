@@ -341,7 +341,7 @@ Example:
 
 ## Outbound Messages and Manage Case
 
-To manage a case or reply to a message, chatbot can send a request to the dedicated webhook URL provided by OneTalk.
+To manage a case or reply to a message, chatbot can send a request to the OneTalk URL.
 
 There are 3 events supported:
 - `messages`: Handle outbound messages.
