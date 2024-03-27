@@ -2,7 +2,7 @@
 
 * [Overview](#overview)
 * [Inbound Messages](#inbound-messages)
-* [Webhooks](#webhooks)
+* [Outbound Messages and Manage Case](#outbound-messages-and-manage-case)
 
 ## Overview
 
@@ -12,9 +12,9 @@ With custom chatbot, business must provide an API URL which can handle inbound m
 Business can connect any channels in its organization to a chatbot.
 When a message is received by a channel connected to the chatbot, OneTalk will forward the inbound message and case information to the chatbot URL. For more information, see [Inbound Messages](#inbound-messages).
 
-Custom chatbot can interact with the case via OneTalk's provided webhooks. For more information, see [Webhooks](#webhooks).
+Custom chatbot can interact with the case via OneTalk's provided webhooks. For more information, see [Outbound Messages and Manage Case](#outbound-messages-and-manage-case).
 
-When creating custom chatbot in OneTalk dashboard, a secret key and webhook URL will be generated once. The webhook URL is used to interact with a case. The secret key is required when sending request to OneTalk webhooks. The secret key will also be provided in the HTTP header whenever OneTalk forward an inbound message to the chatbot, check the value to verify if the request is valid.
+When creating custom chatbot in OneTalk dashboard, a secret key and OneTalk URL will be generated once. The OneTalk URL is used to interact with a case. The secret key is required when sending request to OneTalk URL. The secret key will also be provided in the HTTP header whenever OneTalk forward an inbound message to the chatbot, check the value to verify if the request is valid.
 
 ## Inbound Messages
 
@@ -339,7 +339,7 @@ Example:
 }
 ```
 
-## Webhooks
+## Outbound Messages and Manage Case
 
 To manage a case or reply to a message, chatbot can send a request to the dedicated webhook URL provided by OneTalk.
 
