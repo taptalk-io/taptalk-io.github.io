@@ -343,7 +343,7 @@ Example:
 
 To manage a case or reply to a message, chatbot can send a request to the dedicated webhook URL provided by OneTalk.
 
-There are 3 events supported:
+There are 5 events supported:
 - `messages`: Handle outbound messages.
 - `handover_case`: Handover case from chatbot to agent.
 - `close_case`: Close the case.
