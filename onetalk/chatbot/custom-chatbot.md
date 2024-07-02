@@ -369,7 +369,7 @@ The request body must be JSON.
 | Field         | Type                                          | Description
 |:--------------|:----------------------------------------------|:-----------------------------------------------------------------
 | caseID        | string                                        | The case ID.
-| eventType     | string                                        | The event type ("messages", "handover_case" "close_case", or "update_contact").
+| eventType     | string                                        | The event type ("messages", "handover_case", "close_case", or "update_contact").
 | messages      | array of [OutboundMessage](#outboundmessage)  | `Optional` The list of outbound messages to be sent as chatbot's response.
 | handoverCase  | [HandoverCase](#handovercase)   | `Optional` Details for the handover.
 | closeCase     | [CloseCase](#closecase)         | `Optional` Details for closing the case.
@@ -428,7 +428,7 @@ OneTalk also supports channel-specific message types:
 | document   | [OutboundMessageDocument](#outboundmessagedocument) | `Optional` Details for message type "document".
 | image      | [OutboundMessageMedia](#outboundmessagemedia)       | `Optional` Details for message type "image".
 | video      | [OutboundMessageMedia](#outboundmessagemedia)       | `Optional` Details for message type "video".
-| whatsappba | [OutboundMessageWABA](#outboundmessagewaba)         | `Optional` Details for message type "whatsappba", availalbe for channel type "whatsappba".
+| whatsappba | [OutboundMessageWABA](#outboundmessagewaba)         | `Optional` Details for message type "whatsappba", available for channel type "whatsappba".
 
 Examples:
 
