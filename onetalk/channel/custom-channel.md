@@ -20,6 +20,11 @@ OneTalk will send outbound messages and case updates to business's Channel URL. 
 
 ## Inbound Messages and Manage Case
 
+* [HTTP Method](#http-method)
+* [HTTP Headers](#http-headers)
+* [Request Body](#request-body)
+* [Response Body](#response-body)
+
 Business can forward inbound messages to a case ID in OneTalk. If an open case is not available yet for the conversation, business must create a new case in OneTalk using the provided OneTalk URL. The created case ID must be saved by the business and must be included when sending inbound messages to OneTalk. A case is valid for a single chat ID, but a chat ID may have multiple open cases.
 
 The following payload types are supported by OneTalk URL:
@@ -245,3 +250,24 @@ Example:
   "caption": "..."
 }
 ```
+
+### Response Body
+
+The response body will be JSON.
+
+| Field   | Type    | Description
+|:--------|:--------|:------------------------------------------
+| success | boolean | If the request is processed successfully.
+| message | string  | The response message.
+| caseID  | string  | The case ID or created case ID.
+
+Examples:
+
+```json
+{
+  "success": true,
+  "message": "case created",
+  "caseID": "FBED34A1EF"
+}
+```
+
