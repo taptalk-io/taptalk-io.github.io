@@ -14,7 +14,7 @@ There are 2 API URLs for custom channel to work:
 
 When creating a custom channel, OneTalk URL will be automatically generated along with a secret key. The secret key is required when sending request to the OneTalk URL. The secret key will also be provided in HTTP header when OneTalk calls the Channel URL, check the value to verify if the request is valid.
 
-To start conversation, business must first create a case in OneTalk and save the created case ID. Business can then forward received inbound messages to the case ID. For more information, see [Inbound Messages and Manage Case](#inbound-messages-and-manage-case).
+To start conversation, business can simply forward received inbound messages to OneTalk. For more information, see [Inbound Messages and Manage Case](#inbound-messages-and-manage-case).
 
 OneTalk will send outbound messages and case updates to business's Channel URL. For more information, see [Outbound Messages and Case Updates](#outbound-messages-and-case-updates).
 
@@ -25,12 +25,11 @@ OneTalk will send outbound messages and case updates to business's Channel URL. 
 * [Request Body](#request-body)
 * [Response Body](#response-body)
 
-Business can forward inbound messages to a case ID in OneTalk. If an open case is not available yet for the conversation, business must create a new case in OneTalk using the provided OneTalk URL. The created case ID must be saved by the business and must be included when sending inbound messages to OneTalk. A case is valid for a single chat ID, but a chat ID may have multiple open cases.
+OneTalk manages chats/conversations in cases. A case will be tied to a chat ID, and a chat ID can only have 1 open case at a time. Business can simply forward received inbound messages to OneTalk and specify the chat ID. If there is currently no open case for the chat ID, OneTalk will automatically create a new case. Any future messages will be sent to the created case as long as it is still open. Business can also send request to close a case for a chat ID.
 
 The following payload types are supported by OneTalk URL:
-- `create_case`: Create a new case.
-- `close_case`: Close an existing case.
-- `messages`: Forward inbound messages to a case.
+- `close_case`: Close an existing case for a chat ID.
+- `messages`: Forward inbound messages for a chat ID.
 
 Specifications for the API request:
 
@@ -53,48 +52,20 @@ The request body must be JSON.
 | Field         | Type                                       | Description
 |:--------------|:-------------------------------------------|:---------------------------------------------------------------
 | type          | string                                     | The payload type ("create_case", "close_case", or "messages").
-| createCase    | [CreateCase](#createcase)                  | `Optional` Details for new case.
 | closeCase     | [CloseCase](#closecase)                    | `Optional` Details for closing a case.
 | messages      | array of [InboundMessage](#inboundmessage) | `Optional` The list of inbound messages sent to the channel.
 
 Examples:
 
 ```json
-
-{
-  "eventType": "create_case",
-  "createCase": {...}
-}
-
 {
   "eventType": "close_case",
   "closeCase": {...}
 }
+
 {
   "eventType": "messages",
   "messages": [{...}]
-}
-```
-
-#### CreateCase
-
-If the parameter `topicID` is not set or value is 0 and the case is not assigned to any topic yet,
-then the case will be automatically assigned to the channel's topic.
-In case the channel has multiple topics, then a message containing topic options will be sent to the customer.
-
-If the parameter `agentEmail` is set, the selected agent must be assigned to the case's assigned topic.
-
-| Field       | Type     | Description
-|:------------|:---------|:------------------------------------------------------
-| topicID     | integer  | `Optional` ID of the topic to handover to. 
-| agentEmail  | string   | `Optional` Email address of the agent to handover to.
-
-Example:
-
-```json
-{
-  "topicID": 123,
-  "agentEmail": ""
 }
 ```
 
@@ -102,14 +73,14 @@ Example:
 
 | Field              | Type    | Description
 |:-------------------|:--------|:-------------------------------------------------------------------------------
-| caseID             | string  | The case ID to be closed.
+| chatID             | string  | The chat ID for which the case is to be closed.
 | sendClosingMessage | boolean | `Optional` If true, closing message will be sent to the customer if available.
 
 Example:
 
 ```json
 {
-  "caseID": "FBED34A1EF",
+  "chatID": "6281234567890",
   "sendClosingMessage": false
 }
 ```
@@ -122,36 +93,39 @@ OneTalk supports 4 basic message types:
 - `image`
 - `video`
 
-| Field      | Type                                              | Description
-|:-----------|:--------------------------------------------------|:---------------------------------------------------------------
-| id         | string                                            | The message ID.
-| isFromSelf | boolean                                           | If the message is sent by self.
-| sender     | [InboundSender](#inboundsender)                   | `Optional` The sender's information, if not from self.
-| timestamp  | long                                              | The message's time, in Unix milliseconds.
-| type       | string                                            | The message type.
-| text       | [InboundMessageText](#inboundmessagetext)         | `Optional` Details for message type "text".
-| document   | [InboundMessageDocument](#inboundmessagedocument) | `Optional` Details for message type "document".
-| image      | [InboundMessageMedia](#inboundmessagemedia)       | `Optional` Details for message type "image".
-| video      | [InboundMessageMedia](#inboundmessagemedia)       | `Optional` Details for message type "video".
-| replyToID  | string                                            | `Optional` Message ID replied by this message.
+| Field            | Type                                              | Description
+|:-----------------|:--------------------------------------------------|:-------------------------------------------------------
+| messageID        | string                                            | The message ID.
+| chatID           | string                                            | The chat/conversation ID.
+| isFromSelf       | boolean                                           | If the message is sent by self.
+| sender           | [InboundSender](#inboundsender)                   | `Optional` The sender's information, if not from self.
+| timestamp        | long                                              | The message's time, in Unix milliseconds.
+| type             | string                                            | The message type.
+| text             | [InboundMessageText](#inboundmessagetext)         | `Optional` Details for message type "text".
+| document         | [InboundMessageDocument](#inboundmessagedocument) | `Optional` Details for message type "document".
+| image            | [InboundMessageMedia](#inboundmessagemedia)       | `Optional` Details for message type "image".
+| video            | [InboundMessageMedia](#inboundmessagemedia)       | `Optional` Details for message type "video".
+| replyToMessageID | string                                            | `Optional` Message ID replied by this message.
 
 Examples:
 
 ```json
 {
-  "id": "msg.1234567890xxx",
+  "messageID": "msg.1234567890xxx",
+  "chatID": "6281234567890",
   "isFromSelf": false,
   "sender": {...},
   "timestamp": 1719934171955,
   "type": "text",
   "text": {
-    "body": "Hi, what's your name?"
+    "body": "Hi, can you help me?"
   },
-  "replyToID": "msg.9876543210xyz"
+  "replyToMessageID": "msg.9876543210xyz"
 }
 
 {
-  "id": "msg.1234567890xxx",
+  "messageID": "msg.1234567890xxx",
+  "chatID": "6281234567890",
   "isFromSelf": false,
   "sender": {...},
   "timestamp": 1719934171955,
@@ -161,11 +135,12 @@ Examples:
     "filename": "Receipt.pdf",
     "caption": ""
   },
-  "replyToID": ""
+  "replyToMessageID": ""
 }
 
 {
-  "id": "msg.1234567890xxx",
+  "messageID": "msg.1234567890xxx",
+  "chatID": "6281234567890",
   "isFromSelf": false,
   "sender": {...},
   "timestamp": 1719934171955,
@@ -174,11 +149,12 @@ Examples:
     "url": "https://...",
     "caption": "..."
   },
-  "replyToID": ""
+  "replyToMessageID": ""
 }
 
 {
-  "id": "msg.1234567890xxx",
+  "messageID": "msg.1234567890xxx",
+  "chatID": "6281234567890",
   "isFromSelf": false,
   "sender": {...},
   "timestamp": 1719934171955,
@@ -187,7 +163,7 @@ Examples:
     "url": "https://...",
     "caption": "..."
   },
-  "replyToID": ""
+  "replyToMessageID": ""
 }
 ```
 
@@ -213,7 +189,7 @@ Examples:
 
 ```json
 {
-  "body": "Hi, what's your name?"
+  "body": "Hi, can you help me?"
 }
 ```
 
@@ -259,15 +235,12 @@ The response body will be JSON.
 |:--------|:--------|:------------------------------------------
 | success | boolean | If the request is processed successfully.
 | message | string  | The response message.
-| caseID  | string  | The case ID or created case ID.
 
 Examples:
 
 ```json
 {
   "success": true,
-  "message": "case created",
-  "caseID": "FBED34A1EF"
+  "message": ""
 }
 ```
-
