@@ -1,4 +1,4 @@
-# Channel - Custom Channel Integration
+# Channel - Kata.ai Channel Integration
 
 * [Overview](#overview)
 * [Inbound Messages and Manage Case](#inbound-messages-and-manage-case)
@@ -6,17 +6,17 @@
 
 ## Overview
 
-This document describes the requirements for development and integration of custom channel for OneTalk.
+This document describes the requirements for development and integration of Kata.ai channel for OneTalk.
 
-There are 2 API URLs for custom channel to work:
-1. API URL provided by OneTalk (OneTalk URL) which business will use to interact with OneTalk, including managing a case and sending inbound messages to OneTalk.
-2. API URL provided by business (Channel URL) to receive event notifications from OneTalk, including outbound messages and case updates.
+There are 2 API URLs for Kata.ai channel to work:
+1. API URL provided by OneTalk (OneTalk URL) which Kata.ai will use to interact with OneTalk, including managing a case and sending inbound messages to OneTalk.
+2. API URL provided by Kata.ai (Kata URL) to receive event notifications from OneTalk, including outbound messages and case updates.
 
-When creating a custom channel, OneTalk URL will be automatically generated along with a secret key. The secret key is required when sending request to the OneTalk URL. The secret key will also be provided in HTTP header when OneTalk calls the Channel URL, check the value to verify if the request is valid.
+When creating a Kata.ai channel, OneTalk URL will be automatically generated along with a secret key. The secret key is required when sending request to the OneTalk URL. The secret key will also be provided in HTTP header when OneTalk calls the Kata URL, check the value to verify if the request is valid.
 
-To start conversation, business can simply forward received inbound messages to OneTalk. For more information, see [Inbound Messages and Manage Case](#inbound-messages-and-manage-case).
+To start conversation, simply forward inbound messages received by Kata.ai to OneTalk. For more information, see [Inbound Messages and Manage Case](#inbound-messages-and-manage-case).
 
-OneTalk will send outbound messages and case updates to business's Channel URL. For more information, see [Outbound Messages and Case Updates](#outbound-messages-and-case-updates).
+OneTalk will send outbound messages and case updates to the channel's Kata URL. For more information, see [Outbound Messages and Case Updates](#outbound-messages-and-case-updates).
 
 ## Inbound Messages and Manage Case
 
@@ -252,7 +252,7 @@ Examples:
 * [Request Body](#request-body-1)
 * [Response Body](#response-body-1)
 
-OneTalk will send event notifications for outbound messages and case updates to the business's Channel URL.
+OneTalk will send event notifications for outbound messages and case updates to the channel's Kata URL.
 
 The following payload types are supported:
 - `message`: An outbound message is sent from OneTalk.
@@ -410,7 +410,7 @@ Example:
 
 ### Response Body
 
-OneTalk expects response from Channel URL in JSON on successful request.
+OneTalk expects response from Kata URL in JSON on successful request.
 Additional details are required for some request payload types.
 
 | Field     | Type                                                | Description
