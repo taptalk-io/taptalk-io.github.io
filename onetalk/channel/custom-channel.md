@@ -1,4 +1,4 @@
-# Chatbot - Custom Channel Integration
+# Channel - Custom Channel Integration
 
 * [Overview](#overview)
 * [Inbound Messages and Manage Case](#inbound-messages-and-manage-case)
