@@ -244,3 +244,205 @@ Examples:
   "message": ""
 }
 ```
+
+## Outbound Messages and Case Updates
+
+* [HTTP Method](#http-method-1)
+* [HTTP Headers](#http-headers-1)
+* [Request Body](#request-body-1)
+* [Response Body](#response-body-1)
+
+OneTalk will send event notifications for outbound messages and case updates to the business's Channel URL.
+
+There following payload types are supported:
+- `message`: An outbound message is sent from OneTalk.
+- `case_closed`: A case is closed from OneTalk.
+
+### HTTP Method
+
+```
+POST
+```
+
+### HTTP Headers
+
+| Header       | Description
+|:-------------|:--------------------------------------------------------------------------------------
+| X-Secret-Key | The channel's secret Key from OneTalk dashboard, can be used to validate the request.
+
+### Request Body
+
+The request body will always be JSON.
+
+| Field      | Type                                | Description
+|:-----------|:------------------------------------|:----------------------------------------------
+| type       | string                              | The payload type ("message" or "case_closed").
+| message    | [OutboundMessage](#outboundmessage) | Details for the outbound message.
+| caseClosed | [CaseClosed](#caseclosed) | Details for the closed case.
+
+Examples:
+
+```json
+{
+  "type": "message",
+  "message": {...}
+}
+
+{
+  "type": "case_closed",
+  "caseClosed": {...}
+}
+```
+
+#### OutboundMessage
+
+OneTalk supports 4 basic message types:
+- `text`
+- `document`
+- `image`
+- `video`
+
+| Field      | Type                                                | Description
+|:-----------|:----------------------------------------------------|:---------------------------------------------------------------
+| type       | string                                              | The message type.
+| text       | [OutboundMessageText](#outboundmessagetext)         | Details for message type "text".
+| document   | [OutboundMessageDocument](#outboundmessagedocument) | Details for message type "document".
+| image      | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "image".
+| video      | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "video".
+
+Examples:
+
+```json
+{
+  "type": "text",
+  "text": {
+    "body": "Hi, how can I help you?"
+  }
+}
+
+{
+  "type": "document",
+  "document": {
+    "url": "https://...",
+    "filename": "Receipt.pdf",
+    "caption": ""
+  }
+}
+
+{
+  "type": "image",
+  "image": {
+    "url": "https://...",
+    "caption": "..."
+  }
+}
+
+{
+  "type": "video",
+  "image": {
+    "url": "https://...",
+    "caption": "..."
+  }
+}
+```
+
+#### OutboundMessageText
+
+| Field | Type    | Description
+|:------|:--------|:--------------------------
+| body  | string  | Body of the text message.
+
+```json
+{
+  "body": "Hi, how can I help you?"
+}
+```
+
+#### OutboundMessageDocument
+
+| Field    | Type    | Description
+|:---------|:--------|:--------------------------
+| url      | string  | The document's file URL.
+| filename | string  | The document's file name.
+| caption  | string  | The document's caption.
+
+Example:
+
+```json
+{
+  "url": "https://...",
+  "filename": "Receipt.pdf",
+  "caption": "..."
+}
+```
+
+#### OutboundMessageMedia
+
+| Field    | Type    | Description
+|:---------|:--------|:-------------------------------
+| url      | string  | The image or video's file URL.
+| caption  | string  | The image or video's caption.
+
+Example:
+
+```json
+{
+  "url": "https://...",
+  "caption": "..."
+}
+```
+
+#### CaseClosed
+
+| Field              | Type    | Description
+|:-------------------|:--------|:------------------------------------------------
+| chatID             | string  | The chat ID for which the case is closed.
+| caseID             | string  | The case ID.
+
+Example:
+
+```json
+{
+  "chatID": "6281234567890",
+  "caseID": "FBED34A1EF"
+}
+```
+
+### Response Body
+
+OneTalk expects response from Channel URL in JSON on successful request.
+Additional details are required for some request payload types.
+
+| Field     | Type                                                | Description
+|:----------|:----------------------------------------------------|:--------------------------------------------------------------
+| success   | boolean                                             | Must be set to true if the request is processed successfully.
+| message   | [OutboundMessageResponse](#outboundmessageresponse) | `Optional` Response details for request payload type "message".
+
+Examples:
+
+```json
+{
+  "success": true,
+  "message": {
+    "messageID": "a1d357d0-4b15-4791-9fbf-7eeb7164383a"
+  }
+}
+
+{
+  "success": false
+}
+```
+
+#### OutboundMessageResponse
+
+| Field     | Type    | Description
+|:----------|:--------|:-------------------------------------
+| messageID | string  | Message ID for the outbound message.
+
+Example:
+
+```json
+{
+  "messageID": "a1d357d0-4b15-4791-9fbf-7eeb7164383a"
+}
+```
