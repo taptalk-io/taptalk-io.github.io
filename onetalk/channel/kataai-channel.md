@@ -105,6 +105,7 @@ OneTalk supports 4 basic message types:
 | document         | [InboundMessageDocument](#inboundmessagedocument) | `Optional` Details for message type "document".
 | image            | [InboundMessageMedia](#inboundmessagemedia)       | `Optional` Details for message type "image".
 | video            | [InboundMessageMedia](#inboundmessagemedia)       | `Optional` Details for message type "video".
+| location         | [InboundMessageLocation](#inboundmessagelocation) | `Optional` Details for message type "location".
 | replyToMessageID | string                                            | `Optional` Message ID replied by this message.
 
 Examples:
@@ -162,6 +163,22 @@ Examples:
   "image": {
     "url": "https://...",
     "caption": "..."
+  },
+  "replyToMessageID": ""
+}
+
+{
+  "messageID": "msg.1234567890xxx",
+  "chatID": "6281234567890",
+  "isFromSelf": false,
+  "sender": {...},
+  "timestamp": 1719934171955,
+  "type": "location",
+  "location": {
+    "latitude": -6.1972252057581,
+    "longitude": 106.76131798074,
+    "address": "...",
+    "name": ""
   },
   "replyToMessageID": ""
 }
@@ -224,6 +241,26 @@ Example:
 {
   "url": "https://...",
   "caption": "..."
+}
+```
+
+#### InboundMessageLocation
+
+| Field     | Type    | Description
+|:----------|:--------|:-------------------------
+| latitude  | float   | Location latitude.
+| longitude | float   | Location longitude.
+| address   | string  | Address of the location.
+| name      | string  | Name of the location.
+
+Example:
+
+```json
+{
+  "latitude": -6.1972252057581,
+  "longitude": 106.76131798074,
+  "address": "...",
+  "name": ""
 }
 ```
 
