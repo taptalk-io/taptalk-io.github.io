@@ -59,12 +59,12 @@ Examples:
 
 ```json
 {
-  "eventType": "close_case",
+  "type": "close_case",
   "closeCase": {...}
 }
 
 {
-  "eventType": "messages",
+  "type": "messages",
   "messages": [{...}]
 }
 ```
@@ -278,7 +278,7 @@ The request body will always be JSON.
 |:-----------|:------------------------------------|:----------------------------------------------
 | type       | string                              | The payload type ("message" or "case_closed").
 | message    | [OutboundMessage](#outboundmessage) | Details for the outbound message.
-| caseClosed | [CaseClosed](#caseclosed) | Details for the closed case.
+| caseClosed | [CaseClosed](#caseclosed)           | Details for the closed case.
 
 Examples:
 

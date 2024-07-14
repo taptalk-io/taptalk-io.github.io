@@ -59,12 +59,12 @@ Examples:
 
 ```json
 {
-  "eventType": "close_case",
+  "type": "close_case",
   "closeCase": {...}
 }
 
 {
-  "eventType": "messages",
+  "type": "messages",
   "messages": [{...}]
 }
 ```
@@ -278,7 +278,7 @@ The request body will always be JSON.
 |:-----------|:------------------------------------|:----------------------------------------------
 | type       | string                              | The payload type ("message" or "case_closed").
 | message    | [OutboundMessage](#outboundmessage) | Details for the outbound message.
-| caseClosed | [CaseClosed](#caseclosed) | Details for the closed case.
+| caseClosed | [CaseClosed](#caseclosed)           | Details for the closed case.
 
 Examples:
 
@@ -302,25 +302,30 @@ OneTalk supports 4 basic message types:
 - `image`
 - `video`
 
-| Field      | Type                                                | Description
-|:-----------|:----------------------------------------------------|:---------------------------------------------------------------
-| type       | string                                              | The message type.
-| text       | [OutboundMessageText](#outboundmessagetext)         | Details for message type "text".
-| document   | [OutboundMessageDocument](#outboundmessagedocument) | Details for message type "document".
-| image      | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "image".
-| video      | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "video".
+| Field            | Type                                                | Description
+|:-----------------|:----------------------------------------------------|:---------------------------------------------------------------
+| chatID           | string                                              | The chat/conversation ID as recipient.
+| type             | string                                              | The message type.
+| text             | [OutboundMessageText](#outboundmessagetext)         | Details for message type "text".
+| document         | [OutboundMessageDocument](#outboundmessagedocument) | Details for message type "document".
+| image            | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "image".
+| video            | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "video".
+| replyToMessageID | string                                              | `Optional` Message ID replied by this message.
 
 Examples:
 
 ```json
 {
+  "chatID": "6281234567890",
   "type": "text",
   "text": {
     "body": "Hi, how can I help you?"
-  }
+  },
+  "replyToMessageID": "msg.1234567890xxx"
 }
 
 {
+  "chatID": "6281234567890",
   "type": "document",
   "document": {
     "url": "https://...",
@@ -330,14 +335,17 @@ Examples:
 }
 
 {
+  "chatID": "6281234567890",
   "type": "image",
   "image": {
     "url": "https://...",
     "caption": "..."
-  }
+  },
+  "replyToMessageID": ""
 }
 
 {
+  "chatID": "6281234567890",
   "type": "video",
   "image": {
     "url": "https://...",
