@@ -51,7 +51,7 @@ The request body must be JSON.
 
 | Field         | Type                                       | Description
 |:--------------|:-------------------------------------------|:---------------------------------------------------------------
-| type          | string                                     | The payload type ("close_case", or "messages").
+| type          | string                                     | The payload type ("close_case" or "messages").
 | closeCase     | [CloseCase](#closecase)                    | `Optional` Details for closing a case.
 | messages      | array of [InboundMessage](#inboundmessage) | `Optional` The list of inbound messages sent to the channel.
 
