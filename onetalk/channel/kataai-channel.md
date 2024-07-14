@@ -302,14 +302,15 @@ OneTalk supports 4 basic message types:
 - `image`
 - `video`
 
-| Field      | Type                                                | Description
-|:-----------|:----------------------------------------------------|:---------------------------------------------------------------
-| chatID     | string                                              | The chat/conversation ID as recipient.
-| type       | string                                              | The message type.
-| text       | [OutboundMessageText](#outboundmessagetext)         | Details for message type "text".
-| document   | [OutboundMessageDocument](#outboundmessagedocument) | Details for message type "document".
-| image      | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "image".
-| video      | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "video".
+| Field            | Type                                                | Description
+|:-----------------|:----------------------------------------------------|:---------------------------------------------------------------
+| chatID           | string                                              | The chat/conversation ID as recipient.
+| type             | string                                              | The message type.
+| text             | [OutboundMessageText](#outboundmessagetext)         | Details for message type "text".
+| document         | [OutboundMessageDocument](#outboundmessagedocument) | Details for message type "document".
+| image            | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "image".
+| video            | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "video".
+| replyToMessageID | string                                              | `Optional` Message ID replied by this message.
 
 Examples:
 
@@ -319,7 +320,8 @@ Examples:
   "type": "text",
   "text": {
     "body": "Hi, how can I help you?"
-  }
+  },
+  "replyToMessageID": "msg.1234567890xxx"
 }
 
 {
@@ -338,7 +340,8 @@ Examples:
   "image": {
     "url": "https://...",
     "caption": "..."
-  }
+  },
+  "replyToMessageID": ""
 }
 
 {
