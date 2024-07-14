@@ -304,6 +304,7 @@ OneTalk supports 4 basic message types:
 
 | Field      | Type                                                | Description
 |:-----------|:----------------------------------------------------|:---------------------------------------------------------------
+| chatID     | string                                              | The chat/conversation ID as recipient.
 | type       | string                                              | The message type.
 | text       | [OutboundMessageText](#outboundmessagetext)         | Details for message type "text".
 | document   | [OutboundMessageDocument](#outboundmessagedocument) | Details for message type "document".
@@ -314,6 +315,7 @@ Examples:
 
 ```json
 {
+  "chatID": "6281234567890",
   "type": "text",
   "text": {
     "body": "Hi, how can I help you?"
@@ -321,6 +323,7 @@ Examples:
 }
 
 {
+  "chatID": "6281234567890",
   "type": "document",
   "document": {
     "url": "https://...",
@@ -330,6 +333,7 @@ Examples:
 }
 
 {
+  "chatID": "6281234567890",
   "type": "image",
   "image": {
     "url": "https://...",
@@ -338,6 +342,7 @@ Examples:
 }
 
 {
+  "chatID": "6281234567890",
   "type": "video",
   "image": {
     "url": "https://...",
