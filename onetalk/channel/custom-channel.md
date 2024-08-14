@@ -348,6 +348,7 @@ OneTalk supports 4 basic message types:
 | image            | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "image".
 | video            | [OutboundMessageMedia](#outboundmessagemedia)       | Details for message type "video".
 | replyToMessageID | string                                              | `Optional` Message ID replied by this message.
+| customData       | string                                              | `Optional` Additional custom data for the message.
 
 Examples:
 
@@ -358,7 +359,8 @@ Examples:
   "text": {
     "body": "Hi, how can I help you?"
   },
-  "replyToMessageID": "msg.1234567890xxx"
+  "replyToMessageID": "msg.1234567890xxx",
+  "customData": "{\"type\":\"interactive\",\"interactive\":{...}}"
 }
 
 {

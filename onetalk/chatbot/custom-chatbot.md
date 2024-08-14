@@ -429,6 +429,7 @@ OneTalk also supports channel-specific message types:
 | image      | [OutboundMessageMedia](#outboundmessagemedia)       | `Optional` Details for message type "image".
 | video      | [OutboundMessageMedia](#outboundmessagemedia)       | `Optional` Details for message type "video".
 | whatsappba | [OutboundMessageWABA](#outboundmessagewaba)         | `Optional` Details for message type "whatsappba", available for channel type "whatsappba".
+| customData | string                                              | `Optional` Additional custom data for the message (available if channel type is "kataai" or "custom").
 
 Examples:
 
@@ -437,7 +438,8 @@ Examples:
   "type": "text",
   "text": {
     "body": "Hi, what's your name?"
-  }
+  },
+  "customData": "{\"type\":\"interactive\",\"interactive\":{...}}"
 }
 
 {
