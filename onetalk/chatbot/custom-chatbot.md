@@ -42,6 +42,8 @@ The request body will always be a JSON object.
 |:------------|:----------------------------------|:---------------------------------------------------------------
 | caseID      | string                            | The case ID which the message is part of.
 | channelType | string                            | The channel type ("whatsapp", "whatsappba", "telegram", etc.).
+| channelID   | string                            | The channel ID.
+| channelName | string                            | The channel name.
 | sender      | [InboundSender](#inboundsender)   | The sender's information.
 | message     | [InboundMessage](#inboundmessage) | The inbound message's details.
 
@@ -51,6 +53,8 @@ Example:
 {
   "caseID": "FBED34A1EF",
   "channelType": "whatsappba",
+  "channelID": "2108211854",
+  "channelName": "TapTalk.io",
   "sender": {...},
   "message": {...}
 }
