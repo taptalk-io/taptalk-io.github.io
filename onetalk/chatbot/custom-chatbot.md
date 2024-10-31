@@ -62,16 +62,24 @@ Example:
 
 #### InboundSender
 
-| Field       | Type    | Description
-|:------------|:--------|:--------------------------------------------------------------------------------
-| phone       | string  | The sender's phone number (only if channel type is "whatsapp" or "whatsappba").
-| contactName | string  | The contact name.
+| Field          | Type    | Description
+|:---------------|:--------|:--------------------------------------------------------------------------------
+| customerUserID | string  | `Optional` The sender's customer user ID, if any.
+| phone          | string  | `Optional` The sender's phone number (only if channel type is "whatsapp" or "whatsappba").
+| contactName    | string  | The contact's name.
 
 Example:
 
 ```json
 {
+  "customerUserID": "",
   "phone": "62851234567890",
+  "contactName": "John Doe"
+}
+
+{
+  "customerUserID": "user:6281234567890",
+  "phone": "",
   "contactName": "John Doe"
 }
 ```
