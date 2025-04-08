@@ -295,6 +295,7 @@ Example:
 | type         | string                                                          | The reply type. Values: "button_reply", "list_reply".
 | button_reply | [InboundMessageWABAButtonReply](#inboundmessagewababuttonreply) | Details for reply type "button_reply", sent when a customer clicks a button.
 | list_reply   | [InboundMessageWABAListReply](#inboundmessagewabalistreply)     | Details for reply type "list_reply", sent when a customer selects an item from a list.
+| nfm_reply   | [InboundMessageWABANFMReply](#inboundmessagewabanfmreply)     | Details for reply type "nfm_reply", sent when a customer completes a flow.
 
 Examples:
 
@@ -313,6 +314,15 @@ Examples:
     "id": "/agent 0",
     "title": "More options",
     "description": "For more topic options"
+  }
+}
+
+{
+  "type": "nfm_reply",
+  "nfm_reply": {
+    "response_json": "{\"flow_token\": \"<FLOW_TOKEN>\", \"optional_param1\": \"<value1>\", \"optional_param2\": \"<value2>\"}",
+    "body": "Sent",
+    "name": "flow"
   }
 }
 ```
@@ -348,6 +358,24 @@ Example:
   "id": "/agent 0",
   "title": "More options",
   "description": "For more topic options"
+}
+```
+
+#### InboundMessageWABANFMReply
+
+| Field         | Type    | Description
+|:--------------|:--------|:-------------------------------------
+| response_json | string  | Flow-specific data. The structure is either defined in flow JSON (see [Complete action](https://developers.facebook.com/docs/whatsapp/flows/reference/flowjson#complete-action)) or, if flow is using an endpoint, controlled by endpoint (see Final Response Payload in [Data Exchange Request](https://developers.facebook.com/docs/whatsapp/flows/guides/implementingyourflowendpoint#data_exchange_request)).
+| body          | string  | Value is always "Sent".
+| name          | string  | Value is "flow".
+
+Example:
+
+```json
+{
+  "response_json": "{\"flow_token\": \"<FLOW_TOKEN>\", \"optional_param1\": \"<value1>\", \"optional_param2\": \"<value2>\"}",
+  "body": "Sent",
+  "name": "flow"
 }
 ```
 
@@ -603,18 +631,20 @@ Examples:
 
 #### OutboundMessageWABAInteractive
 
-There are 2 supported interactive types:
+There are 3 supported interactive types:
 - `button`: For Reply Buttons.
 - `list`: For List Messages.
+- `flow`: For Flow Messages.
 
 | Field        | Type                                                                                      | Description
 |:-------------|:------------------------------------------------------------------------------------------|:-------------------------
-| type         | string                                                                                    | Type of interactive message. Values: "button", "list".
+| type         | string                                                                                    | Type of interactive message. Values: "button", "list", "flow".
 | header       | [OutboundMessageWABAInteractiveHeader](#outboundmessagewabainteractiveheader)             | `Optional` Header of the message.
 | body         | [OutboundMessageWABAInteractiveBody](#outboundmessagewabainteractivebody)                 | Body of the message.
 | footer       | [OutboundMessageWABAInteractiveFooter](#outboundmessagewabainteractivefooter)             | `Optional` Footer of the message.
 | buttonAction | [OutboundMessageWABAInteractiveButtonAction](#outboundmessagewabainteractivebuttonaction) | `Optional` Action for interactive type "button".
 | listAction   | [OutboundMessageWABAInteractiveListAction](#outboundmessagewabainteractivelistaction)     | `Optional` Action for interactive type "list".
+| flowAction   | [OutboundMessageWABAInteractiveFlowAction](#outboundmessagewabainteractiveflowaction)     | `Optional` Action for interactive type "flow".
 
 Examples:
 
@@ -639,6 +669,20 @@ Examples:
   "listAction": {
     "button": "...",
     "sections": [{...}]
+  }
+}
+
+{
+  "type": "list",
+  "body": {
+    "text": "..."
+  },
+  "flowAction": {
+    "flowID": "...",
+    "flowMode": "...",
+    "flowCTA": "...",
+    "flowAction": "...",
+    "flowActionPayload": {...}
   }
 }
 ```
@@ -811,6 +855,48 @@ Example:
   "id": "/agent 0",
   "title": "More options",
   "description": "For more topic options"
+}
+```
+
+#### OutboundMessageWABAInteractiveFlowAction
+
+| Field             | Type                                                                                                | Description
+|:------------------|:----------------------------------------------------------------------------------------------------|:-----------------------------
+| flowID            | string                                                                                              | ID of the Flow.
+| flowMode          | string                                                                                              | `Optional` The current mode of the Flow, either "draft" or "published" (default).
+| flowCTA           | string                                                                                              | Text on the CTA button. Maximum length: 30 characters (no emoji).
+| flowAction        | string                                                                                              | `Optional` Values: "navigate" (default), "data_exchange". Use "navigate" to predefine the first screen as part of the message. Use "data_exchange" for advanced use-cases where the first screen is provided by [your endpoint](https://developers.facebook.com/docs/whatsapp/flows/guides/implementingyourflowendpoint).
+| flowActionPayload | [OutboundMessageWABAInteractiveFlowActionPayload](#outboundmessagewabainteractiveflowactionpayload) | Optional only if `flowAction` is "navigate".
+
+Example:
+
+```json
+{
+  "flowID": "123456",
+  "flowMode": "published",
+  "flowCTA": "Book!",
+  "flowAction": "navigate",
+  "flowActionPayload": {...}
+}
+```
+
+#### OutboundMessageWABAInteractiveFlowActionPayload
+
+| Field  | Type   | Description
+|:-------|:-------|:-----------------------------
+| screen | string | `Optional` The ID of the first screen of the Flow. Default: "FIRST_ENTRY_SCREEN"
+| data   | object | `Optional` The input data for the first screen of the Flow. Must be a non-empty object.
+
+Example:
+
+```json
+{
+  "screen": "<SCREEN_NAME>",
+  "data": { 
+    "product_name": "name",
+    "product_description": "description",
+    "product_price": 100
+  }
 }
 ```
 
