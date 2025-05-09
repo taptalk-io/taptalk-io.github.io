@@ -95,7 +95,8 @@ Example:
 | image      | [InboundMessageMedia](#inboundmessagemedia)           | Details for message type "image".
 | video      | [InboundMessageMedia](#inboundmessagemedia)           | Details for message type "video".
 | location   | [InboundMessageLocation](#inboundmessagelocation)     | Details for message type "location".
-| whatsappba | [InboundMessageWABA](#inboundmessagewaba) | Additional details for channel type "whatsappba", if provided.
+| whatsappba | [InboundMessageWABA](#inboundmessagewaba)             | Additional details for channel type "whatsappba", if provided.
+| timestamp  | long                                                  | The message's timestamp in Unix milliseconds.
 
 Examples:
 
