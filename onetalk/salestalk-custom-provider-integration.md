@@ -126,9 +126,9 @@ N/A
 
 **Response Data**
 
-| Field      | Type                    | Description
-|:-----------|:------------------------|:------------------------
-| items      | [Category](#category)[] | The list of categories.
+| Field      | Type                           | Description
+|:-----------|:-------------------------------|:------------------------
+| items      | array of [Category](#category) | The list of categories.
 
 **Response Example**
 
@@ -194,12 +194,12 @@ Possible sorting fields:
 
 **Response Data**
 
-| Field      | Type                    | Description
-|:-----------|:------------------------|:---------------------------------------------------
-| items      | [Product](#product)[]   | The list of products.
-| hasMore    | boolean                 | If there are more items in pagination.
-| totalItems | integer                 | Total number of items in pagination.
-| totalPages | integer                 | Total number of pages for the requested page size.
+| Field      | Type                         | Description
+|:-----------|:-----------------------------|:---------------------------------------------------
+| items      | array of [Product](#product) | The list of products.
+| hasMore    | boolean                      | If there are more items in pagination.
+| totalItems | integer                      | Total number of items in pagination.
+| totalPages | integer                      | Total number of pages for the requested page size.
 
 > Make sure to calculate the `totalItems` and `totalPages` correctly.
 
@@ -328,16 +328,16 @@ Get the details of a product.
 
 ### Product
 
-| Field       | Type                            | Description
-|:------------|:--------------------------------|:------------------------------------------------------
-| id          | string                          | The product ID.
-| name        | string                          | The product name.
-| category    | [Category](#category)           | The product's category.
-| imageURL    | string                          | The product's image URL.
-| description | string                          | The product's description.
-| prices      | [ProductPrice](#productprice)[] | The product's prices (must contain at least 1 price).
-| stock       | integer                         | The product's stock.
-| productURL  | string                          | The product URL.
+| Field       | Type                                   | Description
+|:------------|:---------------------------------------|:------------------------------------------------------
+| id          | string                                 | The product ID.
+| name        | string                                 | The product name.
+| category    | [Category](#category)                  | The product's category.
+| imageURL    | string                                 | The product's image URL.
+| description | string                                 | The product's description.
+| prices      | array of [ProductPrice](#productprice) | The product's prices (must contain at least 1 price).
+| stock       | integer                                | The product's stock.
+| productURL  | string                                 | The product URL.
 
 **Example:**
 
