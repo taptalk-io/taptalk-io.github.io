@@ -292,30 +292,30 @@ Custom provider can generate a dynamic URL based on the agent requesting the URL
 ### Case
 
 | Field                      | Type                          | Description
-|:---------------------------|:------------------------------|:------------------------------------------------------
-| id                         | string                        |
-| channelType                | string                        |
-| channelID                  | string                        |
-| channelName                | string                        |
-| topicID                    | int32                         |
-| topicName                  | string                        |
-| assigneeType               | string                        |
-| chatbotID                  | string                        |
-| chatbotName                | string                        |
-| agentEmail                 | string                        |
-| agentFullName              | string                        |
-| agentAlias                 | string                        |
-| firstMessage               | string                        |
-| firstResponseTime          | int64                         |
-| firstResponseAgentEmail    | string                        |
-| firstResponseAgentFullName | string                        |
-| firstResponseAgentAlias    | string                        |
-| createdTime                | int64                         |
-| counterStartTime           | int64                         |
-| isJunk                     | bool                          |
-| agentRemark                | string                        |
-| labels                     | array of string               |
-| referrer                   | [CaseReferrer](#casereferrer) | `Optional` The case's referrer & UTM.
+|:---------------------------|:------------------------------|:----------------------------------------------------------------------------
+| id                         | string                        | The case ID.
+| channelType                | string                        | Channel type where the case is created from ("whatsapp", "whatsappba", "telegram", etc.).
+| channelID                  | string                        | The channel ID.
+| channelName                | string                        | The channel name.
+| topicID                    | int32                         | The topic ID.
+| topicName                  | string                        | The topic name.
+| assigneeType               | string                        | The case's current assignee type ("agent" or "chatbot").
+| chatbotID                  | string                        | ID of the chatbot currently handling the case.
+| chatbotName                | string                        | Name of the chatbot currently handling the case.
+| agentEmail                 | string                        | Email address of the agent handling the case.
+| agentFullName              | string                        | Full name of the agent handling the case.
+| agentAlias                 | string                        | Alias of the agent handling the case.
+| firstMessage               | string                        | The case's first message.
+| firstResponseTime          | int64                         | The time of first response from agent, in Unix milliseconds.
+| firstResponseAgentEmail    | string                        | Email address of the agent who responded first.
+| firstResponseAgentFullName | string                        | Full name of the agent who responded first.
+| firstResponseAgentAlias    | string                        | Alias of the agent who responded first.
+| createdTime                | int64                         | The time the case was created, in Unix milliseconds.
+| counterStartTime           | int64                         | The time to start counting duration from, in Unix milliseconds.
+| isJunk                     | boolean                       | If the case is marked as junk.
+| agentRemark                | string                        | Remark by agent for the case.
+| labels                     | array of string               | The case's assigned labels.
+| referrer                   | [CaseReferrer](#casereferrer) | `Optional` The case's referrer & UTM, if any.
 
 **Example:**
 
