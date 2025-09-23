@@ -909,17 +909,19 @@ In case the channel has multiple topics, then a message containing topic options
 
 If the parameter `agentEmail` is set, the selected agent must be assigned to the case's assigned topic.
 
-| Field       | Type     | Description
-|:------------|:---------|:------------------------------------------------------
-| topicID     | integer  | `Optional` ID of the topic to handover to. 
-| agentEmail  | string   | `Optional` Email address of the agent to handover to.
+| Field                  | Type     | Description
+|:-----------------------|:---------|:------------------------------------------------------
+| topicID                | integer  | `Optional` ID of the topic to handover to. 
+| agentEmail             | string   | `Optional` Email address of the agent to handover to.
+| chatbotHandoverSummary | string   | `Optional` Handover summary by chatbot for the case.
 
 Example:
 
 ```json
 {
   "topicID": 123,
-  "agentEmail": ""
+  "agentEmail": "",
+  "chatbotHandoverSummary": ""
 }
 ```
 
