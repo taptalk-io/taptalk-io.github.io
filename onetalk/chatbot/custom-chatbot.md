@@ -20,6 +20,8 @@ When creating custom chatbot in OneTalk dashboard, a secret key and OneTalk URL 
 
 Inbound messages received by a channel will be forwarded to the custom chatbot's API URL. Custom chatbot must be able to process the API requests and return response with HTTP status 200 on success. In case the chatbot fail to return HTTP status 200, OneTalk will try to send the API request for a limited number of attempts before dropping request for that message.
 
+> <b>Important!</b><br>Make sure that the API process requests <b>asynchronously</b> and return response as soon as possible. Otherwise, the inbound message queue will be held up and may cause delay in message delivery.
+
 Specifications for the API request:
 
 ### HTTP Method

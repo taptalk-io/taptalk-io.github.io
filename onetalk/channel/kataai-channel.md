@@ -295,6 +295,8 @@ The following payload types are supported:
 - `message`: An outbound message is sent from OneTalk.
 - `case_closed`: A case is closed from OneTalk.
 
+> <b>Important!</b><br>Make sure that your API process requests <b>asynchronously</b> and return response as soon as possible. Otherwise, the outbound message queue will be held up and may cause delay in message delivery.
+
 ### HTTP Method
 
 ```
