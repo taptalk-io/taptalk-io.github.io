@@ -634,10 +634,11 @@ Examples:
 
 #### OutboundMessageWABAInteractive
 
-There are 3 supported interactive types:
+There are 4 supported interactive types:
 - `button`: For Reply Buttons.
 - `list`: For List Messages.
 - `flow`: For Flow Messages.
+- `request_contact_info`: For Request Contact Info.
 
 | Field        | Type                                                                                      | Description
 |:-------------|:------------------------------------------------------------------------------------------|:-------------------------
@@ -676,7 +677,7 @@ Examples:
 }
 
 {
-  "type": "list",
+  "type": "flow",
   "body": {
     "text": "..."
   },
@@ -686,6 +687,13 @@ Examples:
     "flowCTA": "...",
     "flowAction": "...",
     "flowActionPayload": {...}
+  }
+}
+
+{
+  "type": "request_contact_info",
+  "body": {
+    "text": "..."
   }
 }
 ```
